@@ -23,9 +23,7 @@ def menu_scene_setup(screen: Surface, manager: SceneManager) -> Scene:
                 Button(Vector2(150, 50), "Play"),
                 PlayButton(),
                 Transition(Vector2(0, 0)),
-                BoxCollider([
-                    Rect(0, 0, 150, 50)
-                ])
+                BoxCollider([ [0, 0, 1, 1] ])
             ],
             None
         )

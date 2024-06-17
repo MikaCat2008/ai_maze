@@ -17,7 +17,7 @@ scene_manager = SceneManager()
 menu_scene = menu_scene_setup(screen, scene_manager)
 game_scene = game_scene_setup(screen, scene_manager)
 
-scene_manager.set_current(game_scene)
+scene_manager.set_current(menu_scene)
 
 while True:
     scene = scene_manager.current
