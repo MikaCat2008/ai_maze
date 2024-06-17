@@ -22,20 +22,15 @@ class Movement(Component):
     def update(self, delta: float) -> None:
         move = Vector2()
         speed = self.speed * delta
-        changed = False
 
         if self.input.pressed.up:
             move.y += speed
-            changed = True
         if self.input.pressed.down:
             move.y -= speed
-            changed = True
         if self.input.pressed.left:
             move.x -= speed
-            changed = True
         if self.input.pressed.right:
             move.x += speed
-            changed = True
 
-        if changed:
+        if move.x or move.y:
             self.box_collider.update_collision(move)
