@@ -27,11 +27,16 @@ class BoxCollider(Component):
         mx, my = move.t
         x, y = self.transition.pos.t
         w, h = self.sprite_render.size.t
-        x += mx
-        y += my
+        pos = Vector2(x + mx, y + my)
 
-        rects = self.get_rects(mx, 0)
+        self._update_collision(w, None, mx, None, pos, self.get_rects(mx, 0))
+        self._update_collision(None, h, None, my, pos, self.get_rects(0, my))
 
+        self.transition.pos = pos
+
+    def _update_collision(
+        self, w: int, h: int, mx: int, my: int, pos: Vector2, rects: list[Rect]
+    ) -> None:
         for entity in self.entity.manager.get_entities():
             box_collider = entity.get_component(BoxCollider)
 
@@ -41,28 +46,16 @@ class BoxCollider(Component):
             for rect in rects:
                 for _rect in box_collider.get_rects():
                     if rect.colliderect(_rect):
-                        if mx > 0:
-                            x = _rect.left - w / 2
-                        elif mx < 0:
-                            x = _rect.right + w / 2
-
-        rects = self.get_rects(0, my)
-
-        for entity in self.entity.manager.get_entities():
-            box_collider = entity.get_component(BoxCollider)
-
-            if box_collider is None or box_collider is self or not box_collider.collision:
-                continue
-
-            for rect in rects:
-                for _rect in box_collider.get_rects():
-                    if rect.colliderect(_rect):
-                        if my > 0:
-                            y = _rect.top - h / 2
-                        elif my < 0:
-                            y = _rect.bottom + h / 2
-
-        self.transition.pos = Vector2(x, y)
+                        if mx is not None:
+                            if mx > 0:
+                                pos.x = _rect.left - w / 2
+                            elif mx < 0:
+                                pos.x = _rect.right + w / 2
+                        if my is not None:
+                            if my > 0:
+                                pos.y = _rect.top - h / 2
+                            elif my < 0:
+                                pos.y = _rect.bottom + h / 2
 
     def get_rects(self, mx: int = 0, my: int = 0) -> list[Rect]:
         x, y = self.transition.pos.t
