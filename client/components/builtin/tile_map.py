@@ -57,6 +57,8 @@ class TilePrefab(Prefab):
 
 
 class TileMap(Component):
+    type = "TileMap"
+
     tiles: list[Entity]
     tile_size: int
     tile_types: dict[str, TileType]
@@ -89,14 +91,12 @@ class TileMap(Component):
 
 class TileRender(SpriteRender):
     tile: Tile
-    transition: Transition
     box_collider: BoxCollider
 
     def init(self, entity: Entity) -> None:
         super().init(entity)
 
         self.tile = entity.get_component(Tile)
-        self.transition = entity.get_component(Transition)
         self.box_collider = entity.get_component(BoxCollider)
 
     def render(self) -> None:

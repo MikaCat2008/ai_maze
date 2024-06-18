@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TypeVar, Optional, TYPE_CHECKING
+from typing import Type, Optional, TYPE_CHECKING
 from collections import defaultdict
 from pygame.event import Event
 
@@ -26,8 +26,8 @@ class EntityManager:
         for entity in self.get_entities():
             entity.update(delta)
 
-    def create(self, components: list[Component], tag: str = None) -> Entity:
-        entity = Entity()
+    def create(self, components: list[Component], tag: str = None, cls: Type[Entity] = Entity) -> Entity:
+        entity = cls()
         entity.init(tag, self)
 
         self.entities[tag].append(entity)

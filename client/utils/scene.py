@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from .entity import Entity
 from .component import Component
+from .game_object import GameObject
 from .entity_manager import EntityManager
 
 if TYPE_CHECKING:
@@ -22,7 +23,7 @@ class Scene:
         self.entity_manager = EntityManager(self)
 
     def create(self, components: list[Component], tag: str = None) -> Entity:
-        return self.entity_manager.create(components, tag)
+        return self.entity_manager.create(components, tag, cls=GameObject)
 
     def init(self) -> None:
         self.inited = True

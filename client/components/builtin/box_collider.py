@@ -1,11 +1,13 @@
 from pygame.rect import Rect
-from utils import Vector2, Entity, Component
+from utils import Entity, Vector2, Component
 
 from .transition import Transition
 from .sprite_render import SpriteRender
 
 
 class BoxCollider(Component):
+    type = "BoxCollider"
+
     rects: list[Rect]
     collision: bool
     transition: Transition
@@ -15,11 +17,13 @@ class BoxCollider(Component):
         super().__init__()
 
         self.rects = rects
-        self.collision = collision  
+        self.collision = collision 
+        self.transition = None
+        self.sprite_render = None
 
     def init(self, entity: Entity) -> None:
         super().init(entity)
-        
+
         self.transition = entity.get_component(Transition)
         self.sprite_render = entity.get_component(SpriteRender)
 

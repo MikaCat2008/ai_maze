@@ -4,6 +4,8 @@ from utils import Vector2, Vector4, Component
 
 
 class SpriteRender(Component):
+    type = "SpriteRender"
+
     _size: Vector2
     _color: Vector4
     _changed: bool

@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 
 
 class Component:
+    type = None
+    
     entity: Optional[Entity]
     handlers: dict[object, Callable]
 

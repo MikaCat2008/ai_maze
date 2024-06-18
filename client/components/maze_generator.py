@@ -2,10 +2,9 @@ from random import choice, shuffle
 from typing import Optional
 from utils import Vector2, Entity, Component
 
+from components.builtin.tile_map import TileMap
 from components.spawn_point import SpawnPoint
 from components.finish_point import FinishPoint
-
-from components.builtin.tile_map import TileMap
 
 
 class MazeHelper:
@@ -175,7 +174,7 @@ class MazeGenerator(Component):
         )
 
     def create_finish_point(self) -> None:
-        x, y =self.width - 2 - (not self.width % 2), self.height - 2
+        x, y = self.width - 2 - (not self.width % 2), self.height - 2
 
         self.finish_point = self.tile_map.add_tile(
             Vector2(x, y), "FinishPoint", FinishPoint

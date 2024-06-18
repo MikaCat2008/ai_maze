@@ -11,5 +11,4 @@ class PlayButton(Component):
 
     def on_click(self, event: MouseClick) -> None:
         scene_manager = self.entity.manager.scene.manager
-
         scene_manager.set_current("Game")

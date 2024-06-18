@@ -1,17 +1,16 @@
-from pygame.draw import rect as draw_rect
 from pygame.surface import Surface
 from utils import Entity, Vector3, Component
 
 from .transition import Transition
-from .box_collider import BoxCollider
 from .sprite_render import SpriteRender
 
 
 class Camera(Component):
+    type = "Camera"
+
     screen: Surface
     screen_w: int
     screen_h: int
-    transition: Transition
     background: tuple[int, int, int]
 
     def __init__(self, screen: Surface, background: Vector3 = None) -> None:
@@ -29,10 +28,10 @@ class Camera(Component):
     def update(self) -> None:
         x, y = self.transition.pos.t
 
-        for entity in self.entity.manager.get_entities():
-            transition = entity.get_component(Transition)
-            sprite_render = entity.get_component(SpriteRender)
-
+        for game_object in self.entity.manager.get_entities():
+            transition = game_object.get_component(Transition)
+            sprite_render = game_object.get_component(SpriteRender)
+            
             if transition and sprite_render:
                 if sprite_render.invisible:
                     continue

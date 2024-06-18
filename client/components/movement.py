@@ -1,23 +1,17 @@
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
-from utils import Vector2, Entity, Component
+from utils import Vector2, GameObject, GameComponent
 
 from .builtin.input import Input
-from .builtin.box_collider import BoxCollider
 
 
-class Movement(Component):
+class Movement(GameComponent):
     speed: int
     input: Input
-    box_collider: BoxCollider
     
-    def init(self, entity: Entity) -> None:
-        super().init(entity)
+    def init(self, game_object: GameObject) -> None:
+        super().init(game_object)
 
         self.speed = 200
-        self.input = entity.manager.get_entity_by_tag("Input").get_component(Input)
-        self.box_collider = entity.get_component(BoxCollider)
+        self.input = game_object.manager.get_entity_by_tag("Input").get_component(Input)
 
     def update(self, delta: float) -> None:
         move = Vector2()

@@ -14,7 +14,7 @@ class SpawnPoint(Tile):
         super().init(entity)
 
         self.transition = entity.get_component(Transition)
-        self.main_сplayer = None
+        self.main_player = None
 
         self.spawn(True)
 

@@ -18,6 +18,8 @@ class Actions:
 
 
 class Input(Component):
+    type = "Input"
+
     def init(self, entity: Entity) -> None:
         super().init(entity)
 
