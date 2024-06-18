@@ -9,15 +9,18 @@ class SpriteRender(Component):
     _size: Vector2
     _color: Vector4
     _changed: bool
+    sprite: Surface
     rendered: Surface
     invisible: bool
 
-    def __init__(self, size: Vector2, color: Vector4 = None) -> None:
+    def __init__(self, size: Vector2 = None, flip: bool = False, color: Vector4 = None, sprite: Surface = None) -> None:
         super().__init__()
 
-        self._size = size
+        self._size = size or Vector2(*sprite.get_size())
         self._color = color or Vector4(0, 0, 0, 0)
         self._changed = True
+        self.flip = flip
+        self.sprite = sprite
         self.invisible = False
 
     @property
@@ -40,8 +43,12 @@ class SpriteRender(Component):
 
     def render(self) -> None:
         self._changed = False
-        self.rendered = Surface(self.size.t, pg.SRCALPHA)
-        self.rendered.fill(self.color.t)
+
+        if self.sprite:
+            self.rendered = self.sprite
+        else:
+            self.rendered = Surface(self.size.t, pg.SRCALPHA)
+            self.rendered.fill(self.color.t)
 
     def changed(self) -> bool:
         changed = self._changed

@@ -28,7 +28,7 @@ def game_scene_setup(screen: Surface, manager: SceneManager) -> Scene:
         (
             [
                 Camera(screen, Vector3(255, 255, 255)),
-                Transition(Vector2(360, 360))
+                Transition(Vector2(336, 336))
             ],
             "Camera"
         ),
@@ -39,13 +39,13 @@ def game_scene_setup(screen: Surface, manager: SceneManager) -> Scene:
         # ),
         (
             [
-                TileMap(24, {
+                TileMap(48, {
                     "SpawnPoint": TileType(
-                        size=40,
+                        size=80,
                         color=Vector4(0, 255, 0, 100)
                     ),
                     "FinishPoint": TileType(
-                        size=40,
+                        size=80,
                         color=Vector4(255, 0, 0, 100)
                     ),
                     **walls

@@ -1,4 +1,3 @@
-from typing import cast
 import pygame as pg
 from pygame.time import Clock
 from pygame.event import get as get_events
@@ -6,12 +5,12 @@ from pygame.display import flip as flip_screen, set_mode, set_caption
 from utils import SceneManager
 
 pg.font.init()
+screen = set_mode((720, 720))
 
 from scenes.menu_scene import menu_scene_setup
 from scenes.game_scene import game_scene_setup
 
 clock = Clock()
-screen = set_mode((744, 744))
 scene_manager = SceneManager()
 
 menu_scene = menu_scene_setup(screen, scene_manager)

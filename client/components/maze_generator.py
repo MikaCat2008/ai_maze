@@ -33,42 +33,20 @@ class MazeGenerator(Component):
 
     tile_map: TileMap
 
-    walls: list[Entity]
-    spawn_point: Optional[Entity]
-    finish_point: Optional[Entity]
-
     def init(self, entity: Entity) -> None:
         super().init(entity)
 
         self.maze = None        
-        self.width = 31
-        self.height = 31
-        self.wall_size = 24
+        self.width = 15
+        self.height = 15
+        self.wall_size = 48
 
         self.tile_map = entity.manager.get_entity_by_tag("TileMap").get_component(TileMap)
 
-        self.walls = []
-        self.spawn_point = None
-        self.finish_point = None
-
         self.generate()
 
-    def clear(self) -> None:        
-        for wall in self.walls:
-            wall.remove()
-
-        if self.spawn_point:
-            self.spawn_point.remove()
-        
-        if self.finish_point:
-            self.finish_point.remove()
-
-        self.walls = []
-        self.spawn_point = None
-        self.finish_point = None
-
     def generate(self) -> None:
-        self.clear()
+        self.tile_map.clear()
 
         self.generate_maze()
         self.normalize_maze()
@@ -160,22 +138,20 @@ class MazeGenerator(Component):
 
         wall_type = top + down * 2 + left * 4 + right * 8
 
-        wall = self.tile_map.add_tile(
+        self.tile_map.add_tile(
             Vector2(x, y), f"Wall-{wall_type}"
         )
-
-        self.walls.append(wall)
 
     def create_spawn_point(self) -> None:
         x, y = 1, 1 + (not self.height % 2)
 
-        self.spawn_point = self.tile_map.add_tile(
+        self.tile_map.add_tile(
             Vector2(x, y), "SpawnPoint", SpawnPoint
         )
 
     def create_finish_point(self) -> None:
         x, y = self.width - 2 - (not self.width % 2), self.height - 2
 
-        self.finish_point = self.tile_map.add_tile(
+        self.tile_map.add_tile(
             Vector2(x, y), "FinishPoint", FinishPoint
         )

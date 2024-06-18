@@ -30,16 +30,15 @@ class BoxCollider(Component):
     def update_collision(self, move: Vector2) -> None:
         mx, my = move.t
         x, y = self.transition.pos.t
-        w, h = self.sprite_render.size.t
         pos = Vector2(x + mx, y + my)
 
-        self._update_collision(w, None, mx, None, pos, self.get_rects(mx, 0))
-        self._update_collision(None, h, None, my, pos, self.get_rects(0, my))
+        self._update_collision(mx, None, pos, self.get_rects(mx, 0))
+        self._update_collision(None, my, pos, self.get_rects(0, my))
 
         self.transition.pos = pos
 
     def _update_collision(
-        self, w: int, h: int, mx: int, my: int, pos: Vector2, rects: list[Rect]
+        self, mx: int, my: int, pos: Vector2, rects: list[Rect]
     ) -> None:
         for entity in self.entity.manager.get_entities():
             box_collider = entity.get_component(BoxCollider)
@@ -52,14 +51,14 @@ class BoxCollider(Component):
                     if rect.colliderect(_rect):
                         if mx is not None:
                             if mx > 0:
-                                pos.x = _rect.left - w / 2
+                                pos.x = _rect.left - rect.w / 2
                             elif mx < 0:
-                                pos.x = _rect.right + w / 2
+                                pos.x = _rect.right + rect.w / 2 + 1
                         if my is not None:
                             if my > 0:
-                                pos.y = _rect.top - h / 2
+                                pos.y = _rect.top - rect.h / 2
                             elif my < 0:
-                                pos.y = _rect.bottom + h / 2
+                                pos.y = _rect.bottom + rect.h / 2 + 1
 
     def get_rects(self, mx: int = 0, my: int = 0) -> list[Rect]:
         x, y = self.transition.pos.t

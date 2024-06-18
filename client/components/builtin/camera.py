@@ -1,7 +1,10 @@
+from pygame.draw import rect as draw_rect
 from pygame.surface import Surface
+from pygame.transform import flip
 from utils import Entity, Vector3, Component
 
 from .transition import Transition
+from .box_collider import BoxCollider
 from .sprite_render import SpriteRender
 
 
@@ -28,9 +31,9 @@ class Camera(Component):
     def update(self) -> None:
         x, y = self.transition.pos.t
 
-        for game_object in self.entity.manager.get_entities():
-            transition = game_object.get_component(Transition)
-            sprite_render = game_object.get_component(SpriteRender)
+        for entity in self.entity.manager.get_entities():
+            transition = entity.get_component(Transition)
+            sprite_render = entity.get_component(SpriteRender)
             
             if transition and sprite_render:
                 if sprite_render.invisible:
@@ -45,8 +48,8 @@ class Camera(Component):
                 pos.x += self.screen_w / 2 - w / 2 - x
                 pos.y = self.screen_h / 2 - h / 2 + y - pos.y
 
-                self.screen.blit(sprite_render.rendered, pos.t)
-                
+                self.screen.blit(flip(sprite_render.rendered, sprite_render.flip, 0), pos.t)
+
                 # box_collider = entity.get_component(BoxCollider)
                 # draw_rect(self.screen, (0, 255, 0), (*pos.t, w, h), 1)
 

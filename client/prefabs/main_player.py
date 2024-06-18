@@ -1,9 +1,10 @@
-from pygame.rect import Rect
-from utils import Prefab, Vector2, Vector4, Component
+from utils import load_image, Prefab, Vector2, Component
 from components.builtin.transition import Transition
 from components.builtin.box_collider import BoxCollider
 from components.builtin.sprite_render import SpriteRender
 from components.movement import Movement
+
+sprite = load_image("client/resources/player.png", (60, 66))
 
 
 class MainPlayer(Prefab):
@@ -18,9 +19,9 @@ class MainPlayer(Prefab):
                 Movement(),
                 Transition(pos),
                 BoxCollider([
-                    Rect(0, 0, 1, 1)
+                    [0, 0, 0.5, 0.55]
                 ]),
-                SpriteRender(Vector2(20, 20), Vector4(255, 0, 0))
+                SpriteRender(sprite=sprite)
             ],
             "MainPlayer"
         )

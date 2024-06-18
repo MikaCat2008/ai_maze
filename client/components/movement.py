@@ -27,4 +27,9 @@ class Movement(GameComponent):
             move.x += speed
 
         if move.x or move.y:
+            if move.x > 0:
+                self.sprite_render.flip = True
+            elif move.x < 0:
+                self.sprite_render.flip = False
+
             self.box_collider.update_collision(move)

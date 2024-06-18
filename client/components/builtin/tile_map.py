@@ -87,6 +87,12 @@ class TileMap(Component):
         self.tiles.append(tile)
 
         return tile
+    
+    def clear(self) -> None:
+        for tile in self.tiles:
+            tile.remove()
+        
+        self.tiles = []
 
 
 class TileRender(SpriteRender):
