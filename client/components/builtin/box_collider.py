@@ -46,9 +46,9 @@ class BoxCollider(Component):
 
             if box_collider is None or box_collider is self or not box_collider.collision:
                 continue
-
-            for rect in rects:
-                for _rect in box_collider.get_rects():
+            
+            for _rect in box_collider.get_rects():
+                for rect in rects:
                     if rect.colliderect(_rect):
                         if mx is not None:
                             if mx > 0:
@@ -75,14 +75,16 @@ class BoxCollider(Component):
         ]
 
     def collidepoint(self, point: tuple[int, int]) -> bool:
-        return any(rect.collidepoint(point) for rect in self.get_rects())
+        return any(Rect(rect).collidepoint(point) for rect in self.get_rects())
 
     def colliderect(self, rect: tuple[int, int]) -> bool:
         return any(_rect.colliderect(rect) for _rect in self.get_rects())
     
     def collidewith(self, box_collider: "BoxCollider") -> bool:
-        for rect in self.get_rects():
-            for _rect in box_collider.get_rects():
+        rects = self.get_rects()
+        
+        for _rect in box_collider.get_rects():
+            for rect in rects:
                 if rect.colliderect(_rect):
                     return True
         
