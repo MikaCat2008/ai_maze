@@ -8,11 +8,6 @@ sprite = load_image("client/resources/player.png", (60, 66))
 
 
 class MainPlayer(Prefab):
-    movement: Movement
-    transition: Transition
-    box_collider: BoxCollider
-    sprite_render: SpriteRender
-
     def init(self, pos: Vector2) -> tuple[list[Component], str]:
         return (
             [

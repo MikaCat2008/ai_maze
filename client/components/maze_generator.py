@@ -1,6 +1,5 @@
 from random import choice, shuffle
-from typing import Optional
-from utils import Vector2, Entity, Component
+from utils import Vector2, Entity, GameComponent
 
 from components.builtin.tile_map import TileMap
 from components.spawn_point import SpawnPoint
@@ -25,7 +24,7 @@ class MazeHelper:
         return cls.is_point_in_maze(maze, x, y) and maze[y][x]
 
 
-class MazeGenerator(Component):
+class MazeGenerator(GameComponent):
     maze: list[list[bool]]
     width: int
     height: int

@@ -1,13 +1,13 @@
 from typing import Type, Optional
 from pygame.draw import rect as draw_rect
-from utils import Prefab, Entity, Vector2, Vector3, Component, instantiate
+from utils import Prefab, Entity, Vector2, Vector3, GameComponent, instantiate
 
 from .transition import Transition
 from .box_collider import BoxCollider
 from .sprite_render import SpriteRender
 
 
-class Tile(Component):
+class Tile(GameComponent):
     type: str
     color: str
 
@@ -44,7 +44,7 @@ class TileType:
 
 
 class TilePrefab(Prefab):
-    def init(self, pos: Vector2, cls: Type[Tile], type: TileType) -> tuple[list[Component], str]:
+    def init(self, pos: Vector2, cls: Type[Tile], type: TileType) -> tuple[list[GameComponent], str]:
         return (
             [
                 cls(type.type, type.color),
@@ -56,7 +56,7 @@ class TilePrefab(Prefab):
         )
 
 
-class TileMap(Component):
+class TileMap(GameComponent):
     type = "TileMap"
 
     tiles: list[Entity]

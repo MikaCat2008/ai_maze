@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import overload, TypeVar, Callable, Optional, TYPE_CHECKING
+from typing import TypeVar, Callable, Optional, TYPE_CHECKING
 from inspect import getfullargspec
 from pygame.event import Event
 

@@ -57,10 +57,7 @@ class Entity:
                 if (_component.type or type(_component).__name__) == component
             ]
         else:
-            component_list = [
-                _component for _component in self.components.values() 
-                if isinstance(_component, component) 
-            ]
+            component_list = [ self.components.get(component) ]
 
         if component_list:
             return component_list[0]

@@ -1,9 +1,9 @@
-from utils import Component
+from utils import GameComponent
 
 from .ui.button import MouseClick
 
 
-class PlayButton(Component):
+class PlayButton(GameComponent):
     def __init__(self) -> None:
         super().__init__()
 

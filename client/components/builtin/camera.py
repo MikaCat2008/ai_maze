@@ -1,14 +1,14 @@
-from pygame.draw import rect as draw_rect
+# from pygame.draw import rect as draw_rect
 from pygame.surface import Surface
 from pygame.transform import flip
-from utils import Entity, Vector3, Component
+from utils import Entity, Vector3, GameComponent
 
 from .transition import Transition
-from .box_collider import BoxCollider
+# from .box_collider import BoxCollider
 from .sprite_render import SpriteRender
 
 
-class Camera(Component):
+class Camera(GameComponent):
     type = "Camera"
 
     screen: Surface
@@ -22,11 +22,6 @@ class Camera(Component):
         self.screen = screen
         self.screen_w, self.screen_h = screen.get_size()
         self.background = background or Vector3(255, 255, 255)
-
-    def init(self, entity: Entity) -> None:
-        super().init(entity)
-
-        self.transition = entity.get_component(Transition)
 
     def update(self) -> None:
         x, y = self.transition.pos.t

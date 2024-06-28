@@ -1,9 +1,9 @@
-from utils import GameObject, GameComponent
+from utils import GameObject
 
 from .builtin.tile_map import Tile
 
 
-class FinishPoint(Tile, GameComponent):
+class FinishPoint(Tile):
     main_player: GameObject
     maze_generator: GameObject
 

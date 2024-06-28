@@ -1,5 +1,5 @@
 from typing import Optional
-from utils import Vector4, Entity, Component, instantiate
+from utils import Entity, instantiate
 from prefabs.main_player import MainPlayer
 
 from components.builtin.tile_map import Tile
@@ -7,13 +7,11 @@ from components.builtin.transition import Transition
 
 
 class SpawnPoint(Tile):
-    transition: Transition
     main_player: Optional[Entity]
     
     def init(self, entity: Entity) -> None:
         super().init(entity)
 
-        self.transition = entity.get_component(Transition)
         self.main_player = None
 
         self.spawn(True)

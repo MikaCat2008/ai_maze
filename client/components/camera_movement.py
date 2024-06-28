@@ -1,7 +1,7 @@
-from utils import Entity, Component, GameObject
+from utils import Entity, GameComponent, GameObject
 
 
-class CameraMovement(Component):
+class CameraMovement(GameComponent):
     camera: GameObject
     main_player: GameObject
 
